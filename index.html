@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Arq2</title>
+	<link rel="stylesheet" type="text/css" href="index.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script type="text/javascript" src="index.js"></script>
+</head>
+<body>
+	<div class="menu" id="menu-1">
+		<h2 style="color: #6a5d84; width: 100%; text-align: center">Preditor Local de Desvios</h2>
+		<div class="item">
+			<div>Numero bits do histórico:</div>
+			<input class="input-number" id="numeroBitsHistorico" type="number" value="1" min="0">
+		</div>
+		<div class="item">
+			<div>Numero bits de PC:</div>
+			<input class="input-number" id="numeroBitsPC" type="number" value="0" min="0">
+		</div>
+<!--		<div class="item">-->
+<!--			<div>Tipo do preditor:</div>-->
+<!--			<input class="input-number" id="tipoPreditor" type="number" value="1" min="1" max="2">-->
+<!--		</div>-->
+		<div class="item">
+			<div>Arquivo:</div>
+			<input class="input-file" id="file-id" type="file">
+		</div>
+		
+		<div class="item" style="width: 100%">
+			<button class="botao" onclick="iniciarPreditor()">iniciar</button>
+		</div>
+	</div>
+	
+	<div class="menu" style="display: none" id="menu-2">
+		<h2 style="color: #6a5d84; width: 100%; text-align: center">Preditor Local de Desvios</h2>
+		<div class="item">
+			<div>
+				<table class="table" id="myTable">
+					<tr>
+						<td>id</td>
+						<td>endereco</td>
+						<td>historico</td>
+						<td>realizado</td>
+						<td>predito</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<div class="item" style="width: 100%">
+			<button class="botao" onclick="proximaExecutacao()">Next</button>
+		</div>
+	</div>
+</body>
+</html>
