@@ -47,8 +47,8 @@ function iniciarPreditor () {
 		for (let j = 0; j < 9; j++) {
 			colunas[j] = row.insertCell(j);
 		}
-
-		colunas[COLUNA.ID].innerHTML = i.toString(2);
+		
+		colunas[COLUNA.ID].innerHTML = i.toString(2).padStart(numeroBitsPC, "0");
 		colunas[COLUNA.ENDERECO].innerHTML = "";
 		colunas[COLUNA.HISTORICO].innerHTML = numeroBitsPreditor == 1 ? "T" : "T,N";
 		colunas[COLUNA.REALIZADO].innerHTML = "";
