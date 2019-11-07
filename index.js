@@ -15,7 +15,7 @@ function lerArquivo(){
 
 function executarProximaLinha(){
 	linhaAtual = linhasDoArquivo[linhaAtualIndice].split(' ');
-	executar(linhaAtual[0], linhaAtual[1]);
+	executar(linhaAtual[0], linhaAtual[1].replace(/\r?\n|\r/, ''));
 }
 
 function proximaExecutacao(){
@@ -24,7 +24,7 @@ function proximaExecutacao(){
 		linhaAtualIndice += 1;
 	} else {
 		$("#botaoDoNext").disabled = true;
-		$("#botaoDoNext").text("Finish");
+		$("#botaoDoNext").text("Terminado");
 	}
 }
 
@@ -85,10 +85,12 @@ function preditor1Bit(linha, realizado) {
 		linha.cells[COLUNA.PREDITO].innerHTML = realizado;
 		linha.cells[COLUNA.DESVIO].innerHTML = "Certo";
 		linha.cells[COLUNA.ACERTOS].innerHTML++;
+		$(linha).addClass("green");
 	} else {
 		linha.cells[COLUNA.PREDITO].innerHTML = linha.cells[COLUNA.HISTORICO].innerHTML;
 		linha.cells[COLUNA.HISTORICO].innerHTML = inverteTomado(linha.cells[COLUNA.HISTORICO].innerHTML);
 		linha.cells[COLUNA.DESVIO].innerHTML = "Errado";
+		$(linha).addClass("red");
 	}
 	linha.cells[COLUNA.TOTAL].innerHTML++;
 	linha.cells[COLUNA.PRECISAO].innerHTML = calculaPrecisao(linha);
@@ -100,10 +102,12 @@ function preditor2Bits(linha, realizado) {
 			linha.cells[COLUNA.PREDITO].innerHTML = realizado;
 			linha.cells[COLUNA.DESVIO].innerHTML = "Certo";
 			linha.cells[COLUNA.ACERTOS].innerHTML++;
+			$(linha).addClass("green");
 		} else {
 			linha.cells[COLUNA.PREDITO].innerHTML = inverteTomado(linha.cells[COLUNA.REALIZADO].innerHTML);
 			linha.cells[COLUNA.DESVIO].innerHTML = "Errado";
 			linha.cells[COLUNA.HISTORICO].innerHTML = "T,N";
+			$(linha).addClass("red");
 		}
 	} else if (linha.cells[COLUNA.HISTORICO].innerHTML == "T,N") {
 		if (realizado == "T") {
@@ -111,20 +115,24 @@ function preditor2Bits(linha, realizado) {
 			linha.cells[COLUNA.DESVIO].innerHTML = "Certo";
 			linha.cells[COLUNA.ACERTOS].innerHTML++;
 			linha.cells[COLUNA.HISTORICO].innerHTML = "T,T";
+			$(linha).addClass("green");
 		} else {
 			linha.cells[COLUNA.PREDITO].innerHTML = inverteTomado(linha.cells[COLUNA.REALIZADO].innerHTML);
 			linha.cells[COLUNA.DESVIO].innerHTML = "Errado";
 			linha.cells[COLUNA.HISTORICO].innerHTML = "N,N";
+			$(linha).addClass("red");
 		}
 	} else if (linha.cells[COLUNA.HISTORICO].innerHTML == "N,N") {
 		if (realizado == "N") {
 			linha.cells[COLUNA.PREDITO].innerHTML = realizado;
 			linha.cells[COLUNA.DESVIO].innerHTML = "Certo";
 			linha.cells[COLUNA.ACERTOS].innerHTML++;
+			$(linha).addClass("green");
 		} else {
 			linha.cells[COLUNA.PREDITO].innerHTML = inverteTomado(linha.cells[COLUNA.REALIZADO].innerHTML);
 			linha.cells[COLUNA.DESVIO].innerHTML = "Errado";
 			linha.cells[COLUNA.HISTORICO].innerHTML = "N,T";
+			$(linha).addClass("red");
 		}
 	} else {
 		if (realizado == "N") {
@@ -132,10 +140,12 @@ function preditor2Bits(linha, realizado) {
 			linha.cells[COLUNA.DESVIO].innerHTML = "Certo";
 			linha.cells[COLUNA.ACERTOS].innerHTML++;
 			linha.cells[COLUNA.HISTORICO].innerHTML = "N,N";
+			$(linha).addClass("red");
 		} else {
 			linha.cells[COLUNA.PREDITO].innerHTML = inverteTomado(linha.cells[COLUNA.REALIZADO].innerHTML);
 			linha.cells[COLUNA.DESVIO].innerHTML = "Errado";
 			linha.cells[COLUNA.HISTORICO].innerHTML = "T,T";
+			$(linha).addClass("red");
 		}
 	}
 
@@ -151,11 +161,11 @@ function executar(endereco, realizado) {
 	let linha = $("#myTable")[0].rows[indiceLinhaTabela + 1];
 
 	$(".green").removeClass("green");
+	$(".red").removeClass("red");
 	$(linha).addClass("yellow");
 
 	setTimeout(function () {
 		$(".yellow").removeClass("yellow");
-		$(linha).addClass("green");
 
 		linha.cells[COLUNA.ENDERECO].innerHTML = endereco;
 		linha.cells[COLUNA.REALIZADO].innerHTML = realizado;
