@@ -45,7 +45,7 @@ dos preditores de desvios.
 
 - Exemplo de saída para o arquivo acima, com 1 bit para bits do preditor e 3 para número de bits do pc
 
-```
+
 	| ID  | Endereço | Histórico | Realizado | Predito | Desvio | Acertos | Total | Precisão |
 	|-----|----------|-----------|-----------|---------|--------|---------|-------|----------|
 	| 000 | b77b55a0 | N         | N         | T       | Errado | 0       | 1     | 0.00%    |
@@ -57,4 +57,3 @@ dos preditores de desvios.
 	| 110 | b77b5c36 | N         | N         | T       | Errado | 0       | 3     | 0.00%    |
 	| 111 | b77ae087 | T         | T         | T       | Certo  | 1       | 3     | 33.33%   |
 
-```
