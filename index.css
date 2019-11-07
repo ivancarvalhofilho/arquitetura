@@ -84,3 +84,7 @@ table, td{
 .yellow {
 	background: #bfcc224f;
 }
+
+#myTable tr {
+	transition: 1s;
+}
