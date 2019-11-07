@@ -64,7 +64,7 @@ table, td{
 	border-radius: 3px;
 	background: linear-gradient(50deg, #ad96de, #f7eb57);
 	color: #333333;
-	width: 100px;
+	width: auto;
 	height: 40px;
 	font-weight: bold;
 	font-size: 20px;
@@ -76,4 +76,11 @@ table, td{
 	background: linear-gradient(50deg, #f7eb57, #ad96de);
 	color: white;
 	transition: .2s;
+}
+
+.green {
+	background: #0055804f;
+}
+.yellow {
+	background: #bfcc224f;
 }
