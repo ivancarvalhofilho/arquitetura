@@ -79,10 +79,13 @@ table, td{
 }
 
 .green {
-	background: #0055804f;
+	background: #2bdc414f;
 }
 .yellow {
 	background: #bfcc224f;
+}
+.red {
+	background: #f100008f;
 }
 
 #myTable tr {
