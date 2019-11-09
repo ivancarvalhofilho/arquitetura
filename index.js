@@ -25,6 +25,7 @@ function proximaExecutacao(){
 	} else {
 		$("#botaoDoNext").disabled = true;
 		$("#botaoDoNext").text("Terminado");
+		$("#botaoDoNext").addClass("disabledButton");
 	}
 }
 
