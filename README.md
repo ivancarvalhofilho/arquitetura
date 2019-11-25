@@ -1,5 +1,7 @@
 # UNIVERSIDADE FEDERAL DE LAVRAS
 
+Aplicação: https://ivancarvalhofilho.github.io/arquitetura/
+
 ## Arquitetura de Computadores II – GCC123
 
 O objetivo deste trabalho é desenvolver o aprendizado sobre preditores de desvio. Serão
