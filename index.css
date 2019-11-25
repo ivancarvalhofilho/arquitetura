@@ -91,3 +91,8 @@ table, td{
 #myTable tr {
 	transition: 1s;
 }
+
+global{
+	font-weight: bold;
+	color: green;
+}
