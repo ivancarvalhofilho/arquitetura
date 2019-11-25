@@ -203,7 +203,7 @@ function executarBht(endereco, realizado) {
 			preditor2Bits(linha, realizado);
 		}
 		calculaPrecisaoGeral();
-	}, 250);
+	}, 1000);
 }
 
 let historicoGlobal = null;
