@@ -83,7 +83,7 @@ function iniciarPreditor () {
 		colunas[COLUNA.DESVIO].innerHTML = "";
 		colunas[COLUNA.ACERTOS].innerHTML = 0;
 		colunas[COLUNA.TOTAL].innerHTML = 0;
-		colunas[COLUNA.PRECISAO].innerHTML = 0;
+		colunas[COLUNA.PRECISAO].innerHTML = "N/A";
 	}
 }
 
@@ -217,7 +217,7 @@ function calculaPrecisaoGeral() {
 			return 1;
 		
 		let precisaoAtual = $(linha).find("td")[COLUNA.PRECISAO].innerHTML.replace("%","");
-		if (precisaoAtual != 0) {
+		if (precisaoAtual != 'N/A') {
 			precisaoGeral += Number(precisaoAtual);
 			numeroDePreditores++;
 		}
