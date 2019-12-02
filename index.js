@@ -210,21 +210,20 @@ let historicoGlobal = null;
 let tamanhoHistoricoGlobal = 0;
 
 function calculaPrecisaoGeral() {
-	let precisaoGeral = 0;
-	let numeroDePreditores = 0;
+	let numeroAcertosTotal = 0;
+	let numeroDePredicoesTotal = 0;
 	$("#myTable tr").each(function (index, linha) {
 		if(index == 0)
 			return 1;
 		
-		let precisaoAtual = $(linha).find("td")[COLUNA.PRECISAO].innerHTML.replace("%","");
-		if (precisaoAtual != 0) {
-			precisaoGeral += Number(precisaoAtual);
-			numeroDePreditores++;
-		}
+		let acertoAtual = $(linha).find("td")[COLUNA.ACERTOS].innerHTML;
+		let totalAtual = $(linha).find("td")[COLUNA.TOTAL].innerHTML;
+	
+		numeroAcertosTotal += Number(acertoAtual);
+		numeroDePredicoesTotal += Number(totalAtual);
 	});
-	if(precisaoGeral != 0){
-		$("#precisaoGeral").text((precisaoGeral/numeroDePreditores).toFixed(2)+"%");
-	}
+	
+	$("#precisaoGeral").text(((numeroAcertosTotal / numeroDePredicoesTotal) * 100).toFixed(2)+"%");
 }
 
 function executarGht(endereco, realizado) {
