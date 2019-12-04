@@ -4,7 +4,7 @@ Aplicação: https://ivancarvalhofilho.github.io/arquitetura/
 
 ## UFLA - Arquitetura de Computadores II – GCC123
 
-### Preditor local (BHT)
+### Introdução
 
 O objetivo deste trabalho é desenvolver o aprendizado sobre preditores de desvio. Serão
 estudados, implementados e avaliados os seguintes tipos de preditores de desvio: Preditor
@@ -12,6 +12,8 @@ local de desvios (BHT) e Preditor Global (GHT). Utilizando-se de linguagens de p
 será desenvolvido um programa para simular o comportamento dos preditores de desvios.
 
 ---
+
+### Preditor local (BHT)
 
 - O objetivo do preditor BHT é encontrar um padrão de desvio para cada branch, considerando cada preditor separadamente.
   Para realizar a predição, ele utiliza o número de bits do PC para criar a tabela de predições, então o tamanho total
