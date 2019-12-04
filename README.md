@@ -1,6 +1,8 @@
-# UNIVERSIDADE FEDERAL DE LAVRAS
+# PREDITOR DE DESVIOS (BHT E GHT)
 
 Aplicação: https://ivancarvalhofilho.github.io/arquitetura/
+
+## UNIVERSIDADE FEDERAL DE LAVRAS
 
 ## Arquitetura de Computadores II – GCC123
 
