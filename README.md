@@ -127,6 +127,12 @@ b77b5c36 N
 - Exemplo de saída para o arquivo acima, com 1 para bits do preditor, 2 para número de bits do PC
   e 2 para o tamanho do histórico global:
 
+---
+
+| Histórico Global |
+| ---------------- |
+| T, N             |
+
 | ID    | Endereço | Histórico | Realizado | Predito | Desvio | Acertos | Total | Precisão |
 | ----- | -------- | --------- | --------- | ------- | ------ | ------- | ----- | -------- |
 | 00 00 |          | T         |           |         |        |         |       | NA       |
@@ -150,14 +156,14 @@ b77b5c36 N
  Precisão Geral: 88.89%
 ```
 
-- Exemplo de saída para o arquivo acima, com 1 para bits do preditor, 2 para número de bits do PC
+- Exemplo de saída para o arquivo acima, com 2 para bits do preditor, 2 para número de bits do PC
   e 2 para o tamanho do histórico global:
 
-  | Histórico Global |
-  | ---------------- |
-  | T, N             |
-
 ---
+
+| Histórico Global |
+| ---------------- |
+| T, N             |
 
 | ID    | Endereço | Histórico | Realizado | Predito | Desvio | Acertos | Total | Precisão |
 | ----- | -------- | --------- | --------- | ------- | ------ | ------- | ----- | -------- |
