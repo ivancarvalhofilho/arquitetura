@@ -138,8 +138,6 @@ b77b5c36 N
 - Exemplo de saída para o arquivo acima, com 1 para bits do preditor, 2 para número de bits do PC
   e 2 para o tamanho do histórico global:
 
----
-
 | Histórico Global |
 | ---------------- |
 | T, N             |
@@ -166,12 +164,12 @@ b77b5c36 N
 ```
  Precisão Geral: 88.89%
 ```
+
+---
 
 - Exemplo de saída para o arquivo acima, com 2 para bits do preditor, 2 para número de bits do PC
   e 2 para o tamanho do histórico global:
 
----
-
 | Histórico Global |
 | ---------------- |
 | T, N             |
@@ -198,3 +196,15 @@ b77b5c36 N
 ```
  Precisão Geral: 88.89%
 ```
+
+---
+
+### Conclusão
+
+Em relação ao BHT de 1 e 2 bits, para entradas intercaladas do tipo 'TNTNTNT' o preditor de 2 bits obteve
+uma presição maior que o de 1bit, sendo 66.67% para o de preditor de 1 bit e 72.22% para o preditor de 2 bits.
+Esse comportamento é esperado já que para mudar a predição no caso de 2 bits é preciso que ele falhe 2 vezes seguidas.
+
+Na comparação do preditor global GHT e o preditor local BHT, foi visto que para entradas com algum padrão como a do exemplo
+apresentado no trabalho, O GHT tem uma precisão maior que o BHT, pois, o GHT segue uma tabela de histórico global que
+auxilia o preditor a identificar padrões.
