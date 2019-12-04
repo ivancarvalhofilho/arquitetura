@@ -2,7 +2,9 @@
 
 Aplicação: https://ivancarvalhofilho.github.io/arquitetura/
 
-### UNIVERSIDADE FEDERAL DE LAVRAS - Arquitetura de Computadores II – GCC123
+## UFLA - Arquitetura de Computadores II – GCC123
+
+### Preditor local (BHT)
 
 O objetivo deste trabalho é desenvolver o aprendizado sobre preditores de desvio. Serão
 estudados, implementados e avaliados os seguintes tipos de preditores de desvio: Preditor
@@ -11,11 +13,16 @@ será desenvolvido um programa para simular o comportamento dos preditores de de
 
 ---
 
-- O preditor local BHT pode ser modelado como um preditor de parâmetros (m, n),
-  onde:
-  m - é o número de bits do PC de mais baixa ordem (LSB) usados para indexar a
-  tabela de histórico local (branch-history table).
-  n - número de bits armazenados no registro da tabela de histórico local.
+- O objetivo do preditor BHT é encontrar um padrão de desvio para cada branch, considerando cada preditor separadamente.
+  Para realizar a predição, ele utiliza o número de bits do PC para criar a tabela de predições, então o tamanho total
+  da tabela seria: 2^m. Cada endereço é indexado à uma posição na tabela, que não é necessariamente única, mas totalmente
+  determinística, isto é, um endereço será sempre indexado na mesma posição.
+
+O preditor local BHT pode ser modelado como um preditor de parâmetros (m, n),
+onde:
+m - é o número de bits do PC de mais baixa ordem (LSB) usados para indexar a
+tabela de histórico local (branch-history table).
+n - número de bits armazenados no registro da tabela de histórico local.
 
       No projeto *m* é o input "Numero bits de PC" e *n* é o input "Numero bits do preditor"
       Também é necessário escolher um arquivo do contendo o endereço branch e o valor tomado
@@ -82,12 +89,14 @@ b77b5c36 N
 
 ---
 
+### Preditor Global (GHT)
+
 - O objetivo do preditor GHT é encontrar um padrão de desvio geral, considerando todos os preditores. Para realizar a predição,
-  ele possui uma lista de histórico global, que armazena, da esquerda para a direita, os resultados dos ultimos desvios realizado
-  (se foram tomados ou não tomados) então concatena o numero bits de PC para criar a tabela de predições, assim, o ght dá ao endereço influência sobre
-  sua predição.
-  A tabela é indexada considerando os bits mais significativos os resultados possíveis na lista de histórico global. Os bits menos significativos são
-  os bits do número de PC. Então o tamanho total de uma tabela de predições ght seria: 2^g \* 2^m.
+  ele possui uma lista de histórico global, que armazena, da esquerda para a direita, os resultados dos últimos desvios realizado
+  (se foram tomados ou não tomados) então concatena o número de bits do PC para criar a tabela de predições, assim, o ght dá ao
+  endereço influência sobre sua predição. A tabela é indexada considerando os bits mais significativos como os resultados possíveis
+  na lista de histórico global. Os bits menos significativos são os bits do número de PC. Então o tamanho total de uma tabela de
+  predições ght seria: 2^g \* 2^m.
 
   O preditor global GHT pode ser modelado como um preditor de parâmetros (m, n, g),
   onde:
