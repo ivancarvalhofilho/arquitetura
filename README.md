@@ -2,7 +2,9 @@
 
 Aplicação: https://ivancarvalhofilho.github.io/arquitetura/
 
-## UNIVERSIDADE FEDERAL DE LAVRAS - Arquitetura de Computadores II – GCC123
+## UNIVERSIDADE FEDERAL DE LAVRAS
+
+### Arquitetura de Computadores II – GCC123
 
 O objetivo deste trabalho é desenvolver o aprendizado sobre preditores de desvio. Serão
 estudados, implementados e avaliados os seguintes tipos de preditores de desvio: Preditor
