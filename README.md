@@ -98,40 +98,42 @@ b77b5c36 N
   na lista de histórico global. Os bits menos significativos são os bits do número de PC. Então o tamanho total de uma tabela de
   predições ght seria: 2^g \* 2^m.
 
-  O preditor global GHT pode ser modelado como um preditor de parâmetros (m, n, g),
-  onde:
-  m - é o número de bits do PC de mais baixa ordem (LSB) usados para indexar a
-  tabela de histórico local (branch-history table).
-  n - número de bits armazenados no registro da tabela de histórico local.
-  g- é o número de bits armazenados no hirtórico global.
+---
 
-  No projeto _m_ é o input "Numero bits de PC" e _n_ é o input "Numero bits do preditor"
-  e _g_ é o número de bits do histórico global Também é necessário escolher um arquivo
-  do contendo o endereço branch e o valor tomado.
+O preditor global GHT pode ser modelado como um preditor de parâmetros (m, n, g),
+onde:
+m - é o número de bits do PC de mais baixa ordem (LSB) usados para indexar a
+tabela de histórico local (branch-history table).
+n - número de bits armazenados no registro da tabela de histórico local.
+g- é o número de bits armazenados no hirtórico global.
 
-  Exemplo de arquivo:
+    	No projeto _m_ é o input "Numero bits de PC" e _n_ é o input "Numero bits do preditor"
+    	e _g_ é o número de bits do histórico global Também é necessário escolher um arquivo
+    	do contendo o endereço branch e o valor tomado.
 
-  ```
-  b77a8a3a T
-  b77be7ab T
-  b77b55a0 N
-  b77b55e2 T
-  b77b55ec T
-  b77a8b56 N
-  b77ae087 T
-  b77be7ab T
-  b77bdec4 N
-  b77b5c36 T
-  b77b5c3d T
-  b77bdec4 N
-  b77b5c5f T
-  b77b5c4d T
-  b77ae087 N
-  b77be7ab T
-  b77bdec4 T
-  b77b5c36 N
+    	Exemplo de arquivo:
 
-  ```
+```
+b77a8a3a T
+b77be7ab T
+b77b55a0 N
+b77b55e2 T
+b77b55ec T
+b77a8b56 N
+b77ae087 T
+b77be7ab T
+b77bdec4 N
+b77b5c36 T
+b77b5c3d T
+b77bdec4 N
+b77b5c5f T
+b77b5c4d T
+b77ae087 N
+b77be7ab T
+b77bdec4 T
+b77b5c36 N
+
+```
 
 - Exemplo de saída para o arquivo acima, com 1 para bits do preditor, 2 para número de bits do PC
   e 2 para o tamanho do histórico global:
