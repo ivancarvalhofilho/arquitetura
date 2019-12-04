@@ -88,7 +88,8 @@ b77b5c36 N
   sua predição.
   A tabela é indexada considerando os bits mais significativos os resultados possíveis na lista de histórico global. Os bits menos significativos são
   os bits do número de PC. Então o tamanho total de uma tabela de predições ght seria: 2^g \* 2^m.
-- O preditor global GHT pode ser modelado como um preditor de parâmetros (m, n, g),
+
+  O preditor global GHT pode ser modelado como um preditor de parâmetros (m, n, g),
   onde:
   m - é o número de bits do PC de mais baixa ordem (LSB) usados para indexar a
   tabela de histórico local (branch-history table).
@@ -101,7 +102,7 @@ b77b5c36 N
 
   Exemplo de arquivo:
 
-  ````
+  ```
   b77a8a3a T
   b77be7ab T
   b77b55a0 N
@@ -121,4 +122,4 @@ b77b5c36 N
   b77bdec4 T
   b77b5c36 N
 
-  ````
+  ```
