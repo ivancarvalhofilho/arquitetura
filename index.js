@@ -1,6 +1,7 @@
 let linhasDoArquivo = [];
 let linhaAtualIndice = 0;
 let numeroBitsPreditor;
+let numeroBitsIndexador;
 let numeroBitsPC;
 
 function lerArquivo(){
@@ -15,7 +16,12 @@ function lerArquivo(){
 
 function executarProximaLinha(){
 	linhaAtual = linhasDoArquivo[linhaAtualIndice].split(' ');
-	executar(linhaAtual[0], linhaAtual[1]);
+	let opcaoPreditorBht = $("[name='preditor']:checked").val();
+	if(opcaoPreditorBht == 0){
+		executarBht(linhaAtual[0], linhaAtual[1].replace(/\r?\n|\r/, ''));
+	} else {
+		executarGht(linhaAtual[0], linhaAtual[1].replace(/\r?\n|\r/, ''));
+	}
 }
 
 function proximaExecutacao(){
@@ -24,21 +30,40 @@ function proximaExecutacao(){
 		linhaAtualIndice += 1;
 	} else {
 		$("#botaoDoNext").disabled = true;
-		$("#botaoDoNext").text("Finish");
+		$("#botaoDoNext").text("Terminado");
+		$("#botaoDoNext").addClass("disabledButton");
 	}
 }
 
 function iniciarPreditor () {
 	lerArquivo();
+
+	numeroBitsPC = $("#numeroBitsPC").val();
+	
+	numeroBitsPreditor = $("#numeroBitsPreditor").val();
+
+	let opcaoPreditorGht = $("[name='preditor']:checked").val();
+	if(opcaoPreditorGht == 1){
+		$("#titulo").text("Preditor Global de Desvios");
+		tamanhoHistoricoGlobal = $("#tamanhoHistoricoGlobal").val();
+		historicoGlobal = "".padStart(tamanhoHistoricoGlobal, "1");
+
+		let tabelaHistoricoGlobal = $("#tabelaHistoricoGlobal")[0];
+		let row = tabelaHistoricoGlobal.insertRow(1);
+		for (let j=0; j < tamanhoHistoricoGlobal; j++) {
+			coluna = row.insertCell(j);
+			coluna.innerHTML = "T";
+		}
+		$(tabelaHistoricoGlobal).show();
+	}
+	numeroBitsIndexador = Number(numeroBitsPC) + Number(tamanhoHistoricoGlobal);
 	
 	$("#menu-1").hide();
 	$("#menu-2").show();
 
 	let table = $("#myTable")[0];
-	numeroBitsPC = $("#numeroBitsPC").val();
-	let quantidadeLinhasNaTabela = Math.pow(2, numeroBitsPC);
+	let quantidadeLinhasNaTabela = Math.pow(2, numeroBitsIndexador);
 	
-	numeroBitsPreditor = $("#numeroBitsPreditor").val();
 
 	let colunas = [];
 	for (let i=0; i < quantidadeLinhasNaTabela; i++){
@@ -48,7 +73,9 @@ function iniciarPreditor () {
 			colunas[j] = row.insertCell(j);
 		}
 		
-		colunas[COLUNA.ID].innerHTML = i.toString(2).padStart(numeroBitsPC, "0");
+		let index = i.toString(2).padStart(numeroBitsIndexador, "0");
+		index = `<global>${index.substring(0, tamanhoHistoricoGlobal)} </global>${index.substring(tamanhoHistoricoGlobal, index.length)}`;
+		colunas[COLUNA.ID].innerHTML = index;
 		colunas[COLUNA.ENDERECO].innerHTML = "";
 		colunas[COLUNA.HISTORICO].innerHTML = numeroBitsPreditor == 1 ? "T" : "T,N";
 		colunas[COLUNA.REALIZADO].innerHTML = "";
@@ -85,10 +112,12 @@ function preditor1Bit(linha, realizado) {
 		linha.cells[COLUNA.PREDITO].innerHTML = realizado;
 		linha.cells[COLUNA.DESVIO].innerHTML = "Certo";
 		linha.cells[COLUNA.ACERTOS].innerHTML++;
+		$(linha).addClass("green");
 	} else {
 		linha.cells[COLUNA.PREDITO].innerHTML = linha.cells[COLUNA.HISTORICO].innerHTML;
 		linha.cells[COLUNA.HISTORICO].innerHTML = inverteTomado(linha.cells[COLUNA.HISTORICO].innerHTML);
 		linha.cells[COLUNA.DESVIO].innerHTML = "Errado";
+		$(linha).addClass("red");
 	}
 	linha.cells[COLUNA.TOTAL].innerHTML++;
 	linha.cells[COLUNA.PRECISAO].innerHTML = calculaPrecisao(linha);
@@ -100,10 +129,12 @@ function preditor2Bits(linha, realizado) {
 			linha.cells[COLUNA.PREDITO].innerHTML = realizado;
 			linha.cells[COLUNA.DESVIO].innerHTML = "Certo";
 			linha.cells[COLUNA.ACERTOS].innerHTML++;
+			$(linha).addClass("green");
 		} else {
 			linha.cells[COLUNA.PREDITO].innerHTML = inverteTomado(linha.cells[COLUNA.REALIZADO].innerHTML);
 			linha.cells[COLUNA.DESVIO].innerHTML = "Errado";
 			linha.cells[COLUNA.HISTORICO].innerHTML = "T,N";
+			$(linha).addClass("red");
 		}
 	} else if (linha.cells[COLUNA.HISTORICO].innerHTML == "T,N") {
 		if (realizado == "T") {
@@ -111,20 +142,24 @@ function preditor2Bits(linha, realizado) {
 			linha.cells[COLUNA.DESVIO].innerHTML = "Certo";
 			linha.cells[COLUNA.ACERTOS].innerHTML++;
 			linha.cells[COLUNA.HISTORICO].innerHTML = "T,T";
+			$(linha).addClass("green");
 		} else {
 			linha.cells[COLUNA.PREDITO].innerHTML = inverteTomado(linha.cells[COLUNA.REALIZADO].innerHTML);
 			linha.cells[COLUNA.DESVIO].innerHTML = "Errado";
 			linha.cells[COLUNA.HISTORICO].innerHTML = "N,N";
+			$(linha).addClass("red");
 		}
 	} else if (linha.cells[COLUNA.HISTORICO].innerHTML == "N,N") {
 		if (realizado == "N") {
 			linha.cells[COLUNA.PREDITO].innerHTML = realizado;
 			linha.cells[COLUNA.DESVIO].innerHTML = "Certo";
 			linha.cells[COLUNA.ACERTOS].innerHTML++;
+			$(linha).addClass("green");
 		} else {
 			linha.cells[COLUNA.PREDITO].innerHTML = inverteTomado(linha.cells[COLUNA.REALIZADO].innerHTML);
 			linha.cells[COLUNA.DESVIO].innerHTML = "Errado";
 			linha.cells[COLUNA.HISTORICO].innerHTML = "N,T";
+			$(linha).addClass("red");
 		}
 	} else {
 		if (realizado == "N") {
@@ -132,10 +167,12 @@ function preditor2Bits(linha, realizado) {
 			linha.cells[COLUNA.DESVIO].innerHTML = "Certo";
 			linha.cells[COLUNA.ACERTOS].innerHTML++;
 			linha.cells[COLUNA.HISTORICO].innerHTML = "N,N";
+			$(linha).addClass("red");
 		} else {
 			linha.cells[COLUNA.PREDITO].innerHTML = inverteTomado(linha.cells[COLUNA.REALIZADO].innerHTML);
 			linha.cells[COLUNA.DESVIO].innerHTML = "Errado";
 			linha.cells[COLUNA.HISTORICO].innerHTML = "T,T";
+			$(linha).addClass("red");
 		}
 	}
 
@@ -143,19 +180,19 @@ function preditor2Bits(linha, realizado) {
 	linha.cells[COLUNA.PRECISAO].innerHTML = calculaPrecisao(linha);
 }
 
-function executar(endereco, realizado) {
-	let enderecoEmBinario = (parseInt(endereco, 16)).toString(2);
-	let indiceBin = enderecoEmBinario.substring(enderecoEmBinario.length - numeroBitsPC, enderecoEmBinario.length);
+function executarBht(endereco, realizado) {
+	let enderecoEmBinario = ((parseInt(endereco, 16)) >>> 2).toString(2);
+	let indiceBin = enderecoEmBinario.substring(enderecoEmBinario.length - numeroBitsIndexador, enderecoEmBinario.length);
 	let indiceLinhaTabela = parseInt(indiceBin, 2);
 
 	let linha = $("#myTable")[0].rows[indiceLinhaTabela + 1];
 
 	$(".green").removeClass("green");
+	$(".red").removeClass("red");
 	$(linha).addClass("yellow");
 
 	setTimeout(function () {
 		$(".yellow").removeClass("yellow");
-		$(linha).addClass("green");
 
 		linha.cells[COLUNA.ENDERECO].innerHTML = endereco;
 		linha.cells[COLUNA.REALIZADO].innerHTML = realizado;
@@ -164,6 +201,67 @@ function executar(endereco, realizado) {
 			preditor1Bit(linha, realizado);
 		} else {
 			preditor2Bits(linha, realizado);
-		}	
+		}
+		calculaPrecisaoGeral();
 	}, 1000);
 }
+
+let historicoGlobal = null;
+let tamanhoHistoricoGlobal = 0;
+
+function calculaPrecisaoGeral() {
+	let numeroAcertosTotal = 0;
+	let numeroDePredicoesTotal = 0;
+	$("#myTable tr").each(function (index, linha) {
+		if(index == 0)
+			return 1;
+		
+		let acertoAtual = $(linha).find("td")[COLUNA.ACERTOS].innerHTML;
+		let totalAtual = $(linha).find("td")[COLUNA.TOTAL].innerHTML;
+	
+		numeroAcertosTotal += Number(acertoAtual);
+		numeroDePredicoesTotal += Number(totalAtual);
+	});
+	
+	$("#precisaoGeral").text(((numeroAcertosTotal / numeroDePredicoesTotal) * 100).toFixed(2)+"%");
+}
+
+function executarGht(endereco, realizado) {
+	let enderecoEmBinario = ((parseInt(endereco, 16)) >>> 2).toString(2);
+	let indiceBin = enderecoEmBinario.substring(enderecoEmBinario.length - numeroBitsPC, enderecoEmBinario.length);
+	realizadoNumber = 0;
+	if(realizado == "T"){
+		realizadoNumber = 1;
+	}
+	let historicoGlobalAtual = historicoGlobal + realizadoNumber;
+	historicoGlobalAtual = historicoGlobalAtual.slice(1, historicoGlobalAtual.length);
+	
+	let indiceLinhaTabela = parseInt(historicoGlobal + indiceBin, 2);
+
+	historicoGlobal = historicoGlobalAtual;
+
+	historicoGlobal.split("").forEach(function(item, index){
+		$("#tabelaHistoricoGlobal td")[index].innerHTML = item == 1 ? "T" : "N";
+	});
+	
+	let linha = $("#myTable")[0].rows[indiceLinhaTabela + 1];
+
+	$(".green").removeClass("green");
+	$(".red").removeClass("red");
+	$(linha).addClass("yellow");
+
+	setTimeout(function () {
+		$(".yellow").removeClass("yellow");
+
+		linha.cells[COLUNA.ENDERECO].innerHTML = endereco;
+		linha.cells[COLUNA.REALIZADO].innerHTML = realizado;
+
+		if(numeroBitsPreditor == 1) {
+			preditor1Bit(linha, realizado);
+		} else {
+			preditor2Bits(linha, realizado);
+		}
+		calculaPrecisaoGeral();
+	}, 1000);
+}
+

@@ -79,12 +79,29 @@ table, td{
 }
 
 .green {
-	background: #0055804f;
+	background: #2bdc414f;
 }
 .yellow {
 	background: #bfcc224f;
 }
+.red {
+	background: #f100008f;
+}
+.disabledButton {
+	background: gray;
+	cursor: auto;
+	color: white;
+}
+.disabledButton:hover {
+	background: gray;
+	color: white;
+}
 
 #myTable tr {
 	transition: 1s;
+}
+
+global{
+	font-weight: bold;
+	color: green;
 }
