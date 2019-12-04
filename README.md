@@ -152,9 +152,10 @@ b77b5c36 N
 
 - Exemplo de saída para o arquivo acima, com 1 para bits do preditor, 2 para número de bits do PC
   e 2 para o tamanho do histórico global:
+
   | Histórico Global |
   | ---------------- |
-  | T | N |
+  | T                | N |
 
 ---
 
