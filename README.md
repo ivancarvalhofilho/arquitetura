@@ -79,3 +79,33 @@ b77b5c36 N
 ```
  Precisão Geral: 61.11%
 ```
+
+---
+
+    	No projeto *m* é o input "Numero bits de PC" e *n* é o input "Numero bits do preditor"
+    	e *k* é o número de bits do histórico global Também é necessário escolher um arquivo
+    	do contendo o endereço branch e o valor tomado.
+
+    	Exemplo de arquivo:
+
+    	```
+    	b77a8a3a T
+    	b77be7ab T
+    	b77b55a0 N
+    	b77b55e2 T
+    	b77b55ec T
+    	b77a8b56 N
+    	b77ae087 T
+    	b77be7ab T
+    	b77bdec4 N
+    	b77b5c36 T
+    	b77b5c3d T
+    	b77bdec4 N
+    	b77b5c5f T
+    	b77b5c4d T
+    	b77ae087 N
+    	b77be7ab T
+    	b77bdec4 T
+    	b77b5c36 N
+
+    	```
