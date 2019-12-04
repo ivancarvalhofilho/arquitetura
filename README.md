@@ -19,6 +19,8 @@ será desenvolvido um programa para simular o comportamento dos preditores de de
   Para realizar a predição, ele utiliza o número de bits do PC para criar a tabela de predições, então o tamanho total
   da tabela seria: 2^m. Cada endereço é indexado à uma posição na tabela, que não é necessariamente única, mas totalmente
   determinística, isto é, um endereço será sempre indexado na mesma posição.
+  
+---
 
 O preditor local BHT pode ser modelado como um preditor de parâmetros (m, n),
 onde:
