@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="help.css" rel="stylesheet">
+    </head>
+    <body>
+
+    <a href="index.html">Voltar</a>
+
+    <hr>
+    <p class="has-line-data" data-line-start="2" data-line-end="7">O preditor local BHT pode ser modelado como um preditor de parâmetros (m, n),<br>
+    onde:<br>
+    m - é o número de bits do PC de mais baixa ordem (LSB) usados para indexar a<br>
+    tabela de histórico local (branch-history table).<br>
+    n - número de bits armazenados no registro da tabela de histórico local.</p>
+    <pre><code>  No projeto *m* é o input &quot;Numero bits de PC&quot; e *n* é o input &quot;Numero bits do preditor&quot;
+    Também é necessário escolher um arquivo do contendo o endereço branch e o valor tomado
+
+    Exemplo de arquivo:
+    </code></pre>
+    <pre><code class="has-line-data" data-line-start="14" data-line-end="34">b77a8a3a T
+    b77be7ab T
+    b77b55a0 N
+    b77b55e2 T
+    b77b55ec T
+    b77a8b56 N
+    b77ae087 T
+    b77be7ab T
+    b77bdec4 N
+    b77b5c36 T
+    b77b5c3d T
+    b77bdec4 N
+    b77b5c5f T
+    b77b5c4d T
+    b77ae087 N
+    b77be7ab T
+    b77bdec4 T
+    b77b5c36 N
+
+    </code></pre>
+    <ul>
+    <li class="has-line-data" data-line-start="35" data-line-end="37">Exemplo de saída para o arquivo acima, com 1 para bits do preditor e 3 para número de bits do PC:</li>
+    </ul>
+    <table class="table table-striped table-bordered">
+    <thead>
+    <tr>
+    <th>ID</th>
+    <th>Endereço</th>
+    <th>Histórico</th>
+    <th>Realizado</th>
+    <th>Predito</th>
+    <th>Desvio</th>
+    <th>Acertos</th>
+    <th>Total</th>
+    <th>Precisão</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td>000</td>
+    <td>b77b55e2</td>
+    <td>T</td>
+    <td>T</td>
+    <td>N</td>
+    <td>Errado</td>
+    <td>0</td>
+    <td>2</td>
+    <td>0.00%</td>
+    </tr>
+    <tr>
+    <td>001</td>
+    <td>b77bdec4</td>
+    <td>T</td>
+    <td>T</td>
+    <td>N</td>
+    <td>Errado</td>
+    <td>3</td>
+    <td>5</td>
+    <td>60.00%</td>
+    </tr>
+    <tr>
+    <td>010</td>
+    <td>b77be7ab</td>
+    <td>T</td>
+    <td>T</td>
+    <td>T</td>
+    <td>Certo</td>
+    <td>3</td>
+    <td>3</td>
+    <td>100.00%</td>
+    </tr>
+    <tr>
+    <td>011</td>
+    <td>b77b5c4d</td>
+    <td>T</td>
+    <td>T</td>
+    <td>T</td>
+    <td>Certo</td>
+    <td>2</td>
+    <td>2</td>
+    <td>100.00%</td>
+    </tr>
+    <tr>
+    <td>100</td>
+    <td></td>
+    <td>T</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>NA</td>
+    </tr>
+    <tr>
+    <td>101</td>
+    <td>b77b5c36</td>
+    <td>N</td>
+    <td>N</td>
+    <td>T</td>
+    <td>Errado</td>
+    <td>0</td>
+    <td>3</td>
+    <td>0.00%</td>
+    </tr>
+    <tr>
+    <td>110</td>
+    <td>b77a8a3a</td>
+    <td>T</td>
+    <td>T</td>
+    <td>T</td>
+    <td>Certo</td>
+    <td>1</td>
+    <td>1</td>
+    <td>100.00%</td>
+    </tr>
+    <tr>
+    <td>111</td>
+    <td>b77b5c5f</td>
+    <td>T</td>
+    <td>T</td>
+    <td>T</td>
+    <td>Certo</td>
+    <td>2</td>
+    <td>2</td>
+    <td>100.00%</td>
+    </tr>
+    </tbody>
+    </table>
+    <pre><code class="has-line-data" data-line-start="49" data-line-end="51"> Precisão Geral: 61.11%
+    </code></pre>
+    <hr>
+    <ul>
+    <li class="has-line-data" data-line-start="54" data-line-end="56">Exemplo de saída para o arquivo acima, com 2 para bits do preditor e 3 para número de bits do PC:</li>
+    </ul>
+    <table class="table table-striped table-bordered">
+    <thead>
+    <tr>
+    <th>ID</th>
+    <th>Endereço</th>
+    <th>Histórico</th>
+    <th>Realizado</th>
+    <th>Predito</th>
+    <th>Desvio</th>
+    <th>Acertos</th>
+    <th>Total</th>
+    <th>Precisão</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td>000</td>
+    <td>b77b55e2</td>
+    <td>N,T</td>
+    <td>T</td>
+    <td>N</td>
+    <td>Errado</td>
+    <td>0</td>
+    <td>2</td>
+    <td>0.00%</td>
+    </tr>
+    <tr>
+    <td>001</td>
+    <td>b77bdec4</td>
+    <td>N,T</td>
+    <td>T</td>
+    <td>N</td>
+    <td>Errado</td>
+    <td>2</td>
+    <td>5</td>
+    <td>40.00%</td>
+    </tr>
+    <tr>
+    <td>010</td>
+    <td>b77be7ab</td>
+    <td>T,T</td>
+    <td>T</td>
+    <td>T</td>
+    <td>Certo</td>
+    <td>3</td>
+    <td>3</td>
+    <td>100.00%</td>
+    </tr>
+    <tr>
+    <td>011</td>
+    <td>b77b5c4d</td>
+    <td>T,T</td>
+    <td>T</td>
+    <td>T</td>
+    <td>Certo</td>
+    <td>2</td>
+    <td>2</td>
+    <td>100.00%</td>
+    </tr>
+    <tr>
+    <td>100</td>
+    <td></td>
+    <td>T,N</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>NA</td>
+    </tr>
+    <tr>
+    <td>101</td>
+    <td>b77b5c36</td>
+    <td>N,N</td>
+    <td>N</td>
+    <td>N</td>
+    <td>Certo</td>
+    <td>1</td>
+    <td>3</td>
+    <td>33.33%</td>
+    </tr>
+    <tr>
+    <td>110</td>
+    <td>b77a8a3a</td>
+    <td>T,T</td>
+    <td>T</td>
+    <td>T</td>
+    <td>Certo</td>
+    <td>1</td>
+    <td>1</td>
+    <td>100.00%</td>
+    </tr>
+    <tr>
+    <td>111</td>
+    <td>b77ae087</td>
+    <td>T,T</td>
+    <td>T</td>
+    <td>T</td>
+    <td>Certo</td>
+    <td>2</td>
+    <td>2</td>
+    <td>100.00%</td>
+    </tr>
+    </tbody>
+    </table>
+    <pre><code class="has-line-data" data-line-start="68" data-line-end="70"> Precisão Geral: 61.11%
+    </code></pre>
+    <hr>
+    <h3 class="code-line" data-line-start=73 data-line-end=74 ><a id="Preditor_Global_GHT_73"></a>Preditor Global (GHT)</h3>
+    <ul>
+    <li class="has-line-data" data-line-start="75" data-line-end="82">O objetivo do preditor GHT é encontrar um padrão de desvio geral, considerando todos os preditores. Para realizar a predição,<br>
+    ele possui uma lista de histórico global, que armazena, da esquerda para a direita, os resultados dos últimos desvios realizado<br>
+    (se foram tomados ou não tomados) então concatena o número de bits do PC para criar a tabela de predições, assim, o ght dá ao<br>
+    endereço influência sobre sua predição. A tabela é indexada considerando os bits mais significativos como os resultados possíveis<br>
+    na lista de histórico global. Os bits menos significativos são os bits do número de PC. Então o tamanho total de uma tabela de<br>
+    predições ght seria: 2^g * 2^m.</li>
+    </ul>
+    <hr>
+    <p class="has-line-data" data-line-start="84" data-line-end="90">O preditor global GHT pode ser modelado como um preditor de parâmetros (m, n, g),<br>
+    onde:<br>
+    m - é o número de bits do PC de mais baixa ordem (LSB) usados para indexar a<br>
+    tabela de histórico local (branch-history table).<br>
+    n - número de bits armazenados no registro da tabela de histórico local.<br>
+    g- é o número de bits armazenados no hirtórico global.</p>
+    <pre><code>    No projeto _m_ é o input &quot;Numero bits de PC&quot; e _n_ é o input &quot;Numero bits do preditor&quot;
+        e _g_ é o número de bits do histórico global Também é necessário escolher um arquivo
+        do contendo o endereço branch e o valor tomado.
+
+        Exemplo de arquivo:
+    </code></pre>
+    <pre><code class="has-line-data" data-line-start="98" data-line-end="118">b77a8a3a T
+    b77be7ab T
+    b77b55a0 N
+    b77b55e2 T
+    b77b55ec T
+    b77a8b56 N
+    b77ae087 T
+    b77be7ab T
+    b77bdec4 N
+    b77b5c36 T
+    b77b5c3d T
+    b77bdec4 N
+    b77b5c5f T
+    b77b5c4d T
+    b77ae087 N
+    b77be7ab T
+    b77bdec4 T
+    b77b5c36 N
+
+    </code></pre>
+    <ul>
+    <li class="has-line-data" data-line-start="119" data-line-end="122">Exemplo de saída para o arquivo acima, com 1 para bits do preditor, 2 para número de bits do PC<br>
+    e 2 para o tamanho do histórico global:</li>
+    </ul>
+    <table class="table table-striped table-bordered">
+    <thead>
+    <tr>
+    <th>Histórico Global</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td>T, N</td>
+    </tr>
+    </tbody>
+    </table>
+    <table class="table table-striped table-bordered">
+    <thead>
+    <tr>
+    <th>ID</th>
+    <th>Endereço</th>
+    <th>Histórico</th>
+    <th>Realizado</th>
+    <th>Predito</th>
+    <th>Desvio</th>
+    <th>Acertos</th>
+    <th>Total</th>
+    <th>Precisão</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td>00 00</td>
+    <td></td>
+    <td>T</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>NA</td>
+    </tr>
+    <tr>
+    <td>00 01</td>
+    <td></td>
+    <td>T</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>NA</td>
+    </tr>
+    <tr>
+    <td>00 10</td>
+    <td></td>
+    <td>T</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>NA</td>
+    </tr>
+    <tr>
+    <td>00 11</td>
+    <td></td>
+    <td>T</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>NA</td>
+    </tr>
+    <tr>
+    <td>01 00</td>
+    <td></td>
+    <td>T</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>NA</td>
+    </tr>
+    <tr>
+    <td>01 01</td>
+    <td>b77bdec4</td>
+    <td>T</td>
+    <td>T</td>
+    <td>T</td>
+    <td>Certo</td>
+    <td>1</td>
+    <td>1</td>
+    <td>100.00%</td>
+    </tr>
+    <tr>
+    <td>01 10</td>
+    <td>b77be7ab</td>
+    <td>T</td>
+    <td>T</td>
+    <td>T</td>
+    <td>Certo</td>
+    <td>1</td>
+    <td>1</td>
+    <td>100.00%</td>
+    </tr>
+    <tr>
+    <td>01 11</td>
+    <td>b77b5c4d</td>
+    <td>T</td>
+    <td>T</td>
+    <td>T</td>
+    <td>Certo</td>
+    <td>3</td>
+    <td>3</td>
+    <td>100.00%</td>
+    </tr>
+    <tr>
+    <td>10 00</td>
+    <td>b77b55e2</td>
+    <td>T</td>
+    <td>T</td>
+    <td>T</td>
+    <td>Certo</td>
+    <td>1</td>
+    <td>1</td>
+    <td>100.00%</td>
+    </tr>
+    <tr>
+    <td>10 01</td>
+    <td>b77b5c36</td>
+    <td>T</td>
+    <td>T</td>
+    <td>T</td>
+    <td>Certo</td>
+    <td>2</td>
+    <td>2</td>
+    <td>100.00%</td>
+    </tr>
+    <tr>
+    <td>10 10</td>
+    <td>b77be7ab</td>
+    <td>T</td>
+    <td>T</td>
+    <td>T</td>
+    <td>Certo</td>
+    <td>1</td>
+    <td>1</td>
+    <td>100.00%</td>
+    </tr>
+    <tr>
+    <td>10 11</td>
+    <td>b77b5c5f</td>
+    <td>T</td>
+    <td>T</td>
+    <td>T</td>
+    <td>Certo</td>
+    <td>1</td>
+    <td>1</td>
+    <td>100.00%</td>
+    </tr>
+    <tr>
+    <td>11 00</td>
+    <td>b77b55a0</td>
+    <td>N</td>
+    <td>N</td>
+    <td>T</td>
+    <td>Errado</td>
+    <td>0</td>
+    <td>1</td>
+    <td>0.00%</td>
+    </tr>
+    <tr>
+    <td>11 01</td>
+    <td>b77b5c36</td>
+    <td>N</td>
+    <td>N</td>
+    <td>N</td>
+    <td>Certo</td>
+    <td>4</td>
+    <td>5</td>
+    <td>80.00%</td>
+    </tr>
+    <tr>
+    <td>11 10</td>
+    <td>b77be7ab</td>
+    <td>T</td>
+    <td>T</td>
+    <td>T</td>
+    <td>Certo</td>
+    <td>2</td>
+    <td>2</td>
+    <td>100.00%</td>
+    </tr>
+    <tr>
+    <td>11 11</td>
+    <td></td>
+    <td>T</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>NA</td>
+    </tr>
+    </tbody>
+    </table>
+    <pre><code class="has-line-data" data-line-start="146" data-line-end="148"> Precisão Geral: 88.89%
+    </code></pre>
+    <hr>
+    <ul>
+    <li class="has-line-data" data-line-start="151" data-line-end="154">Exemplo de saída para o arquivo acima, com 2 para bits do preditor, 2 para número de bits do PC<br>
+    e 2 para o tamanho do histórico global:</li>
+    </ul>
+    <table class="table table-striped table-bordered">
+    <thead>
+    <tr>
+    <th>Histórico Global</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td>T, N</td>
+    </tr>
+    </tbody>
+    </table>
+    <table class="table table-striped table-bordered">
+    <thead>
+    <tr>
+    <th>ID</th>
+    <th>Endereço</th>
+    <th>Histórico</th>
+    <th>Realizado</th>
+    <th>Predito</th>
+    <th>Desvio</th>
+    <th>Acertos</th>
+    <th>Total</th>
+    <th>Precisão</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td>00 00</td>
+    <td></td>
+    <td>T,N</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>NA</td>
+    </tr>
+    <tr>
+    <td>00 01</td>
+    <td></td>
+    <td>T,N</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>NA</td>
+    </tr>
+    <tr>
+    <td>00 10</td>
+    <td></td>
+    <td>T,N</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>NA</td>
+    </tr>
+    <tr>
+    <td>00 11</td>
+    <td></td>
+    <td>T,N</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>NA</td>
+    </tr>
+    <tr>
+    <td>01 00</td>
+    <td></td>
+    <td>T,N</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>NA</td>
+    </tr>
+    <tr>
+    <td>01 01</td>
+    <td>b77bdec4</td>
+    <td>T,T</td>
+    <td>T</td>
+    <td>T</td>
+    <td>Certo</td>
+    <td>1</td>
+    <td>1</td>
+    <td>100.00%</td>
+    </tr>
+    <tr>
+    <td>01 10</td>
+    <td>b77be7ab</td>
+    <td>T,T</td>
+    <td>T</td>
+    <td>T</td>
+    <td>Certo</td>
+    <td>1</td>
+    <td>1</td>
+    <td>100.00%</td>
+    </tr>
+    <tr>
+    <td>01 11</td>
+    <td>b77b5c4d</td>
+    <td>T,T</td>
+    <td>T</td>
+    <td>T</td>
+    <td>Certo</td>
+    <td>3</td>
+    <td>3</td>
+    <td>100.00%</td>
+    </tr>
+    <tr>
+    <td>10 00</td>
+    <td>b77b55e2</td>
+    <td>T,T</td>
+    <td>T</td>
+    <td>T</td>
+    <td>Certo</td>
+    <td>1</td>
+    <td>1</td>
+    <td>100.00%</td>
+    </tr>
+    <tr>
+    <td>10 01</td>
+    <td>b77b5c36</td>
+    <td>T,T</td>
+    <td>T</td>
+    <td>T</td>
+    <td>Certo</td>
+    <td>2</td>
+    <td>2</td>
+    <td>100.00%</td>
+    </tr>
+    <tr>
+    <td>10 10</td>
+    <td>b77be7ab</td>
+    <td>T,T</td>
+    <td>T</td>
+    <td>T</td>
+    <td>Certo</td>
+    <td>1</td>
+    <td>1</td>
+    <td>100.00%</td>
+    </tr>
+    <tr>
+    <td>10 11</td>
+    <td>b77b5c5f</td>
+    <td>T,T</td>
+    <td>T</td>
+    <td>T</td>
+    <td>Certo</td>
+    <td>1</td>
+    <td>1</td>
+    <td>100.00%</td>
+    </tr>
+    <tr>
+    <td>11 00</td>
+    <td>b77b55a0</td>
+    <td>N,N</td>
+    <td>N</td>
+    <td>T</td>
+    <td>Errado</td>
+    <td>0</td>
+    <td>1</td>
+    <td>0.00%</td>
+    </tr>
+    <tr>
+    <td>11 01</td>
+    <td>b77b5c36</td>
+    <td>N,N</td>
+    <td>N</td>
+    <td>N</td>
+    <td>Certo</td>
+    <td>4</td>
+    <td>5</td>
+    <td>80.00%</td>
+    </tr>
+    <tr>
+    <td>11 10</td>
+    <td>b77be7ab</td>
+    <td>T,T</td>
+    <td>T</td>
+    <td>T</td>
+    <td>Certo</td>
+    <td>2</td>
+    <td>2</td>
+    <td>100.00%</td>
+    </tr>
+    <tr>
+    <td>11 11</td>
+    <td></td>
+    <td>T,N</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>NA</td>
+    </tr>
+    </tbody>
+    </table>
+    <pre><code class="has-line-data" data-line-start="178" data-line-end="180"> Precisão Geral: 88.89%
+    </code></pre>
+    <hr>
+</body>
+</html>
